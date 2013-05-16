@@ -1,0 +1,22 @@
+<?php
+
+if($this->grabado == 1){
+    echo "Usuario editado correctamente";
+    ?>
+        <input type="button" onclick="cerrarVentana()" value="cerrar">
+    <?
+}
+else{
+    $this->title = "Editar Persona";
+    $this->headTitle($this->title);
+    
+    echo $this->form;    
+}
+
+?>
+<script>
+    function cerrarVentana(){
+        opener.location.reload();
+        window.close();
+    }
+</script>

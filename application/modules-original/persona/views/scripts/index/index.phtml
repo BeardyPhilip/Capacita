@@ -1,0 +1,69 @@
+<p><a href="#" onclick="abrirAgregar()">Agregar</a>
+	<a href="#" onclick="abrirEditar()">Editar</a>
+	<a href="#" onclick="abrirEliminar()">Eliminar</a>
+</p>
+<table border="1">
+<tr>
+	<th>&nbsp;</th>
+    <th>RUT</th>
+    <th>Nombre</th>
+	<th>Tipo Persona</th>
+</tr>
+<?php foreach($this->data as $persona) : ?>
+<tr>
+	<td><input type="radio" name="persona" value="<?php echo $persona['per_id']?>"></td>
+    <td><?php echo $this->escape(number_format($persona['per_nrut'],0,',','.').'-'.$persona['per_drut']);?></td>
+    <td><?php echo $this->escape($persona['per_nombre'].' '.$persona['per_apellido']);?></td>
+    <td><?php echo $this->escape($persona['tppr_dsc']);?></td>
+</tr>
+<?php endforeach; ?>
+</table>
+<script>
+	function abrirAgregar(){
+		var url	= "<?php echo $this->baseUrl('/persona/index/add')?>";
+		
+		abrir_ventana(url,"ventanaAgregar",400,300,"NO")
+		
+		//window.open(url,"ventanaAgregar","width=400,height=300,scrollbars=NO"); 
+	}
+	
+	function abrirEditar(){
+		var personas	= document.getElementsByName('persona');
+		var per_id		= 0;
+		
+		for (var i = 0; i < personas.length; i++) {
+			
+			if (personas[i].checked) {
+				// get value, set checked flag or do whatever you need to
+				per_id	= personas[i].value;       
+			}
+		}
+		
+		if (per_id>0) {
+			var url	= "<?php echo $this->baseUrl('/persona/index/edit/per_id/')?>"+per_id;
+			
+			window.open(url,"ventanaModificar","width=400,height=300,scrollbars=NO");	
+		}
+		
+		//alert(per_id);
+		//alert("Esta es la tarea, completar el EDITAR.....saludos ");
+		
+	}
+	
+	function abrirEliminar(){
+		var personas	= document.getElementsByName('persona');
+		var per_id		= 0;
+		
+		for (var i = 0; i < personas.length; i++) {
+			
+			if (personas[i].checked) {
+				// get value, set checked flag or do whatever you need to
+				per_id	= personas[i].value;       
+			}
+		}
+		
+		alert(per_id);
+		alert("Esta es la tarea, completar el ELIMINAR.....saludos ");
+		
+	}
+</script>
